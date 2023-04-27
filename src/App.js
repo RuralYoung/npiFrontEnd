@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './App.css';
 
 
 function App() {
   const [backendData, setBackendData] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      const response = await window.fetch("http://localhost:5000/");
-      const data = await response.json();
-      setBackendData(data);
-    })();
-  }, []);
+  async function fetchData() {
+    const response = await window.fetch("http://localhost:5000/");
+    const data = await response.json();
+    setBackendData(data);
+  }
+
+  /*useEffect(() => {
+    fetchData()
+  }, []);*/
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    fetchData()
+  }
 
   return (
     <div className="App">
       <div className="content">
         <h1>NPI Registry Search</h1>
 
-        <form action>
+        <form onSubmit={handleSubmit}>
           <label>
             City: <input type="text" name="myCity"/>
           </label>
