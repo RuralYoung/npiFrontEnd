@@ -1,10 +1,11 @@
 import React from "react";
+import HandleSubmit from "./HandleSubmit";
 
 export default function SearchForm(props) {
   return (
-    <form>
+    <form onSubmit={HandleSubmit}>
       <label>
-        State: <input type="text" name="myState"/>
+        City: <input type="text" name="myCity"/>
       </label>
       <div>
         <button type="reset">Clear</button>
