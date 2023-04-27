@@ -5,19 +5,17 @@ import './App.css';
 function App() {
   const [backendData, setBackendData] = useState([]);
 
-  async function fetchData() {
-    const response = await window.fetch("http://localhost:5000/");
+  async function fetchData(event) {
+    const formData = new FormData(event.target);
+
+    const response = await window.fetch(`http://localhost:5000/?&city=${formData.get("myCity")}`);
     const data = await response.json();
     setBackendData(data);
   }
 
-  /*useEffect(() => {
-    fetchData()
-  }, []);*/
-
   const handleSubmit = event => {
     event.preventDefault()
-    fetchData()
+    fetchData(event)
   }
 
   return (
