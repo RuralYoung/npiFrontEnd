@@ -12,6 +12,7 @@ function App() {
   const [zip, setZip] = useState([]);
   const [skip, setSkip] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() =>{
     fetch(`http://localhost:5000/?&first_name=${firstName}&last_name=${lastName}&number=${npiNum}&city=${city}&state=${state}&postal_code=${zip}&skip=${skip}`)
@@ -36,6 +37,7 @@ function App() {
     // Since we have a max of 1000 skips
     if (skip < 1000) {
       setSkip(skip => skip + 200)
+      setPage(page => page + 1)
     }
   }
 
@@ -43,6 +45,7 @@ function App() {
     // don't want to go below 0
     if (skip > 0 ) {
       setSkip(skip => skip - 200)
+      setPage(page => page - 1)
     }
   }
 
@@ -77,11 +80,14 @@ function App() {
         </form>
 
         { visible?
+        <div className="results">
+          <div className="pageCounter">{page}</div>
         <table className="table">
           <thead>
             <tr>
               <th>NPI</th>
-              <th>Name</th>
+              <th>Organization Name</th>
+              <th>Provider's name</th>
               <th>Primary Address</th>
             </tr>
           </thead>
@@ -91,18 +97,23 @@ function App() {
               <tr key={index}>
                 <td><a href={`https://npiregistry.cms.hhs.gov/provider-view/${item.number}`} target="_blank" rel="noopener noreferrer">{item.number}</a></td>
                 <td>{item.basic.organization_name}</td>
+                <td>{item.basic.first_name} {item.basic.last_name}</td>
                 <td>{item.addresses[1].address_1} {item.addresses[1].city}, {item.addresses[1].state} {item.addresses[1].postal_code.slice(0,5)}-{item.addresses[1].postal_code.slice(5,9)}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
         : null
         }
-
+      
+        {/*Next and Previous Buttons*/}
         <div>
-          { skip !== 0 && visible? <button onClick={previousPage} className="button">Previous Page</button>:null }
-          { skip !== 1000 && visible? <button onClick={nextPage} className="button">Next Page</button>:null }
+          { skip !== 0 && visible? <button onClick={previousPage} className="previous">Previous Page</button>:null }
+          <span className="box">Page: {page}</span>
+          { skip !== 1000 && visible && backendData.result_count > 50? <button onClick={nextPage} className="next">Next Page</button>:null }
         </div>
+
       </div>
     </div>
   );
