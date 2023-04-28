@@ -76,7 +76,7 @@ function App() {
               <input type="text" name="myState" maxlength="2"placeholder="State"/>
             </label>
             <label>
-              <input type="text" name="myZip" pattern="[0-9]{9}" placeholder="Zip"/>
+              <input type="text" name="myZip" placeholder="Zip"/>
             </label>
           </div>
           <div>
