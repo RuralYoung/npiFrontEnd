@@ -55,24 +55,30 @@ function App() {
       <div className="content">
         <h1>NPI Registry Search</h1>
         <form onSubmit={handleSubmit}>
-          <label>
-            First Name: <input type="text" name="myFirstName"/>
-          </label>
-          <label>
-            Last Name: <input type="text" name="myLastName"/>
-          </label>
-          <label>
-            NPI Number: <input type="text" name="myNpiNum"/>
-          </label>
-          <label>
-            City: <input type="text" name="myCity"/>
-          </label>
-          <label>
-            State: <input type="text" name="myState"/>
-          </label>
-          <label>
-            Zip: <input type="text" name="myZip"/>
-          </label>
+          <div>
+            <label>
+              <input type="text" name="myFirstName" className="form__field" placeholder="First Name"/>
+            </label>
+            <label>
+              <input type="text" name="myLastName"placeholder="Last Name"/>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="text" name="myNpiNum" maxlength="10" minlength="10" placeholder="NPI Number"/>
+            </label>
+            <label>
+              <input type="text" name="myCity" placeholder="City"/>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="text" name="myState" maxlength="2"placeholder="State"/>
+            </label>
+            <label>
+              <input type="text" name="myZip" pattern="[0-9]{9}" placeholder="Zip"/>
+            </label>
+          </div>
           <div>
             <button type="reset">Clear</button>
             <button type="submit">Submit</button> 
