@@ -5,13 +5,13 @@ import './App.css';
 function App() {
   const [backendData, setBackendData] = useState([]);
   const [city, setCity] = useState([]);
-  //const [skip, setSkip] = useState(0);
+  const [skip, setSkip] = useState(0);
 
   useEffect(() =>{
-    fetch(`http://localhost:5000/?&city=${city}&skip=`)
+    fetch(`http://localhost:5000/?&city=${city}&skip=${skip}`)
       .then(response => response.json())
       .then(data => setBackendData(data))
-  }, [city]);
+  }, [city, skip]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -19,6 +19,21 @@ function App() {
     const formData = new FormData(event.target);
     setCity(formData.get("myCity"));
   }
+
+  function nextPage() {
+    // Since we have a max of 1000 skips
+    if (skip < 1000) {
+      setSkip(skip => skip + 200)
+    }
+  }
+
+  function previousPage() {
+    // don't want to go below 0
+    if (skip > 0 ) {
+      setSkip(skip => skip - 200)
+    }
+  }
+
 
   return (
     <div className="App">
@@ -58,8 +73,11 @@ function App() {
             ))}
           </tbody>
         </table>
-
-          <button>load more</button>
+        
+        <div>
+          { skip !== 0 ? <button onClick={previousPage}>Previous Page</button>:null }
+          { skip !== 1000 ? <button onClick={nextPage}>Next Page</button>:null }
+        </div>
       </div>
     </div>
   );
