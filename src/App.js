@@ -59,16 +59,16 @@ function App() {
             Last Name: <input type="text" name="myLastName"/>
           </label>
           <label>
-            NPI Number: <input type="text" name="myNpiNum"/>
+            NPI Number: <input type="text" name="myNpiNum" maxlength="10" minlength="10"/>
           </label>
           <label>
             City: <input type="text" name="myCity"/>
           </label>
           <label>
-            State: <input type="text" name="myState"/>
+            State: <input type="text" name="myState" maxlength="2"/>
           </label>
           <label>
-            Zip: <input type="text" name="myZip"/>
+            Zip: <input type="text" name="myZip" pattern="[0-9]{9}"/>
           </label>
           <div>
             <button type="reset">Clear</button>
