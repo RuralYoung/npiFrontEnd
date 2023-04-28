@@ -1,32 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './App.css';
 
 
 function App() {
   const [backendData, setBackendData] = useState([]);
   const [city, setCity] = useState([]);
-  const [skip, setSkip] = useState(0);
+  //const [skip, setSkip] = useState(0);
 
-  async function fetchData() {
-    const response = await window.fetch(`http://localhost:5000/?&city=${city}&skip=${skip}`);
-    const data = await response.json();
-    setBackendData(data);
-  }
+  useEffect(() =>{
+    fetch(`http://localhost:5000/?&city=${city}&skip=`)
+      .then(response => response.json())
+      .then(data => setBackendData(data))
+  }, [city]);
 
   const handleSubmit = event => {
     event.preventDefault();
+
     const formData = new FormData(event.target);
-
     setCity(formData.get("myCity"));
-
-    fetchData();
-  }
-
-  const fetchMore = event => {
-    event.preventDefault();
-    setSkip(skip=> skip+200);
-
-    fetchData();
   }
 
   return (
@@ -68,7 +59,7 @@ function App() {
           </tbody>
         </table>
 
-          <button onClick={fetchMore} >load more</button>
+          <button>load more</button>
       </div>
     </div>
   );
