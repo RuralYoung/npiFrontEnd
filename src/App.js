@@ -101,7 +101,7 @@ function App() {
 
         <div>
           { skip !== 0 && visible? <button onClick={previousPage} className="button">Previous Page</button>:null }
-          { skip !== 1000 && visible? <button onClick={nextPage} className="button">Next Page</button>:null }
+          { skip !== 1000 && visible && backendData.results.result_count > 50? <button onClick={nextPage} className="button">Next Page</button>:null }
         </div>
       </div>
     </div>
