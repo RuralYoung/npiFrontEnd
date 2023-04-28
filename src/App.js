@@ -62,16 +62,16 @@ function App() {
             Last Name: <input type="text" name="myLastName"/>
           </label>
           <label>
-            NPI Number: <input type="text" name="myNpiNum" maxlength="10" minlength="10"/>
+            NPI Number: <input type="text" name="myNpiNum"/>
           </label>
           <label>
             City: <input type="text" name="myCity"/>
           </label>
           <label>
-            State: <input type="text" name="myState" maxlength="2"/>
+            State: <input type="text" name="myState"/>
           </label>
           <label>
-            Zip: <input type="text" name="myZip" pattern="[0-9]{9}"/>
+            Zip: <input type="text" name="myZip"/>
           </label>
           <div>
             <button type="reset">Clear</button>
@@ -81,7 +81,11 @@ function App() {
 
         { visible?
         <div className="results">
-          <div className="pageCounter">{page}</div>
+          <div>
+            { skip !== 0 && visible? <button onClick={previousPage} className="previous">Previous Page</button>:null }
+            { visible?<span className="box">Page: {page}</span>:null}
+            { skip !== 1000 && visible && backendData.result_count > 50? <button onClick={nextPage} className="next">Next Page</button>:null }
+          </div>
         <table className="table">
           <thead>
             <tr>
@@ -110,7 +114,7 @@ function App() {
         {/*Next and Previous Buttons*/}
         <div>
           { skip !== 0 && visible? <button onClick={previousPage} className="previous">Previous Page</button>:null }
-          <span className="box">Page: {page}</span>
+          { visible?<span className="box">Page: {page}</span>:null}
           { skip !== 1000 && visible && backendData.result_count > 50? <button onClick={nextPage} className="next">Next Page</button>:null }
         </div>
 
