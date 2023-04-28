@@ -18,11 +18,11 @@ padding: 8px;
 .table tr:hover {background-color: #ddd;}
 
 .table th {
-padding-top: 12px;
-padding-bottom: 12px;
-text-align: left;
-background-color: #04AA6D;
-color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
 }
 
 button {
